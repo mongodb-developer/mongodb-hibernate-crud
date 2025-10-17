@@ -1,20 +1,29 @@
 package com.mongodb.domain;
 
-import jakarta.persistence.Embeddable;
-import org.hibernate.annotations.Struct;
+import com.mongodb.hibernate.annotations.ObjectIdGenerator;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import org.bson.types.ObjectId;
 
-@Embeddable
-@Struct(name = "Review")
+@Entity
+@Table(name = "reviews")
 public class Review {
-
+   @Id
+   @ObjectIdGenerator
+   @GeneratedValue
+   ObjectId id;
+   private ObjectId bookId;
    private String author;
    private String title;
    private String comment;
    private double rating;
-   public Review() {}
 
-   public Review(String author, String title, String comment, double rating) {
+   public Review() {}
+   public Review(String author, ObjectId bookId, String title, String comment, double rating) {
       this.author = author;
+      this.bookId = bookId;
       this.title = title;
       this.comment = comment;
       this.rating = rating;

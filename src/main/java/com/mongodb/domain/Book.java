@@ -1,14 +1,11 @@
 package com.mongodb.domain;
+
 import com.mongodb.hibernate.annotations.ObjectIdGenerator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import org.bson.types.ObjectId;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
 @Table(name = "books")
@@ -19,15 +16,6 @@ public class Book {
 	ObjectId id;
 	String title;
 	Integer pages;
-	List<Review> reviews;
-
-	public void addReview(Review review) {
-		if (this.reviews == null) {
-			this.reviews = new ArrayList<>();
-		}
-
-		this.reviews.add(review);
-	}
 
 	public Book() {}
 	public Book(String title, Integer pages) {
@@ -40,7 +28,6 @@ public class Book {
 		this.title = title;
 		this.pages = pages;
 	}
-
 
 	public ObjectId getId() {
 		return id;
@@ -62,11 +49,10 @@ public class Book {
 		this.pages = pages;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Book{id=%s, title='%s', totalPages='%s', reviews='%s'}"
-				.formatted(id, title, pages, reviews);
+		return "Book{id=%s, title='%s', totalPages='%s'}"
+				.formatted(id, title, pages);
 	}
 }
 

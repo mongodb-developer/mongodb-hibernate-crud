@@ -1,4 +1,4 @@
-package com.mongodb;
+package com.mongodb.service;
 
 import com.mongodb.config.HibernateUtil;
 import com.mongodb.domain.Book;
@@ -66,20 +66,22 @@ public class BookService {
 					.list();
 		}
 	}
-
-	public boolean addReview(ObjectId bookId, Review review) {
+	public BookWithReviews findAllBooksWithReviewsById(ObjectId id) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			Transaction tx = session.beginTransaction();
 
-			Book book = session.find(Book.class, bookId);
-			if (book == null) return false;
+			Book book = session.find(Book.class, id);
+			if (book == null) {
+				return null;
+			}
 
-			book.addReview(review);
-			session.merge(book);
+			List<Review> reviews = session.createQuery(
+							"from Review r where r.bookId = :bookId", Review.class)
+					.setParameter("bookId", book.getId())
+					.list();
 
-			tx.commit();
-			return true;
+			return new BookWithReviews(book, reviews);
 		}
 	}
 
+	public record BookWithReviews(Book book, List<Review> reviews) {}
 }

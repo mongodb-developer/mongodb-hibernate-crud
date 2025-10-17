@@ -3,6 +3,8 @@ package com.mongodb;
 import com.mongodb.config.HibernateUtil;
 import com.mongodb.domain.Book;
 import com.mongodb.domain.Review;
+import com.mongodb.service.BookService;
+import com.mongodb.service.ReviewService;
 import org.bson.types.ObjectId;
 import org.hibernate.SessionFactory;
 
@@ -15,6 +17,8 @@ public class MyApplication {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Scanner sc = new Scanner(System.in);
 		BookService bookService = new BookService();
+		ReviewService reviewService = new ReviewService();
+
 		int option;
 
 		do {
@@ -25,6 +29,7 @@ public class MyApplication {
 			System.out.println("4 - Delete Book");
 			System.out.println("5 - Find Books by Minimum Pages");
 			System.out.println("6 - Add Review");
+			System.out.println("7 - List Books and Reviews by Id");
 			System.out.println("0 - Exit");
 			System.out.print("Choose: ");
 			option = sc.nextInt();
@@ -79,23 +84,30 @@ public class MyApplication {
 				}
 				case 6 -> {
 					System.out.print("Book ID: ");
-					String id = sc.nextLine();
+					String bookId = sc.nextLine();
 					System.out.print("Author: ");
 					String author = sc.nextLine();
-					System.out.print("Title: ");
-					String title = sc.nextLine();
+					System.out.print("Review Title: ");
+					String rTitle = sc.nextLine();
 					System.out.print("Comment: ");
 					String comment = sc.nextLine();
 					System.out.print("Rating: ");
 					double rating = sc.nextDouble();
 					sc.nextLine();
 
-
-					Review review = new Review(author, title, comment, rating);
-					boolean ok = bookService.addReview(new ObjectId(id), review);
-					System.out.println(ok ? "Review added successfully!" : "Book not found.");
+					reviewService.insert(new Review(author, new ObjectId(bookId), rTitle, comment, rating));
+					System.out.println("Review added!");
 				}
 
+				case 7 -> {
+					System.out.print("Book ID: ");
+					String bookId = sc.nextLine();
+					BookService.BookWithReviews br = bookService.findAllBooksWithReviewsById(new ObjectId(bookId));
+
+					System.out.printf("\n%s - %s (%d reviews)\n",
+							br.book().getId(), br.book().getTitle(), br.reviews().size());
+					br.reviews().forEach(System.out::println);
+				}
 
 				case 0 -> System.out.println("Bye!");
 				default -> System.out.println("Invalid option, try again.");
