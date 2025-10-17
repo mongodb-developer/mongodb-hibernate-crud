@@ -1,0 +1,68 @@
+package com.mongodb;
+
+import com.mongodb.config.HibernateUtil;
+import com.mongodb.domain.Book;
+import org.bson.types.ObjectId;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import java.util.List;
+
+public class BookService {
+
+	public Book create(String title, Integer pages) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			Transaction tx = session.beginTransaction();
+			Book book = new Book(title, pages);
+			session.persist(book);
+			tx.commit();
+			return book;
+		}
+	}
+
+	public List<Book> findAll() {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.createQuery("from Book", Book.class).list();
+		}
+	}
+
+	public boolean update(Book updatedBook) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			Transaction tx = session.beginTransaction();
+
+			Book existing = session.find(Book.class, updatedBook.getId());
+			if (existing == null) return false;
+
+			existing.setTitle(updatedBook.getTitle());
+			existing.setPages(updatedBook.getPages());
+
+			session.merge(existing);
+			tx.commit();
+			return true;
+		}
+	}
+
+	public boolean deleteById(ObjectId id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			Transaction tx = session.beginTransaction();
+
+			Book book = session.find(Book.class, id);
+			if (book == null) {
+				return false;
+			}
+
+			session.remove(book);
+			tx.commit();
+			return true;
+		}
+	}
+
+	public List<Book> findBooksWithPagesGreaterThanOrEqual(int minPages) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.createQuery(
+							"from Book b where b.pages >= :minPages", Book.class)
+					.setParameter("minPages", minPages)
+					.list();
+		}
+	}
+}
