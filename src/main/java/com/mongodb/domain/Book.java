@@ -6,6 +6,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "books")
@@ -16,12 +19,21 @@ public class Book {
 	ObjectId id;
 	String title;
 	Integer pages;
+	List<Review> reviews;
+
+	public void addReview(Review review) {
+		if (this.reviews == null) {
+			this.reviews = new ArrayList<>();
+		}
+
+		this.reviews.add(review);
+	}
+
 	public Book() {}
 	public Book(String title, Integer pages) {
 		this.title = title;
 		this.pages = pages;
 	}
-
 
 	public Book(ObjectId id, String title, Integer pages) {
 		this.id = id;
@@ -53,8 +65,8 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book{id=%s, title='%s', totalPages='%s'}"
-				.formatted(id, title, pages);
+		return "Book{id=%s, title='%s', totalPages='%s', reviews='%s'}"
+				.formatted(id, title, pages, reviews);
 	}
 }
 

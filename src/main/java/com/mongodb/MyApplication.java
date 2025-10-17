@@ -2,6 +2,7 @@ package com.mongodb;
 
 import com.mongodb.config.HibernateUtil;
 import com.mongodb.domain.Book;
+import com.mongodb.domain.Review;
 import org.bson.types.ObjectId;
 import org.hibernate.SessionFactory;
 
@@ -23,6 +24,7 @@ public class MyApplication {
 			System.out.println("3 - Update Book");
 			System.out.println("4 - Delete Book");
 			System.out.println("5 - Find Books by Minimum Pages");
+			System.out.println("6 - Add Review");
 			System.out.println("0 - Exit");
 			System.out.print("Choose: ");
 			option = sc.nextInt();
@@ -75,6 +77,25 @@ public class MyApplication {
 
 					books.forEach(System.out::println);
 				}
+				case 6 -> {
+					System.out.print("Book ID: ");
+					String id = sc.nextLine();
+					System.out.print("Author: ");
+					String author = sc.nextLine();
+					System.out.print("Title: ");
+					String title = sc.nextLine();
+					System.out.print("Comment: ");
+					String comment = sc.nextLine();
+					System.out.print("Rating: ");
+					double rating = sc.nextDouble();
+					sc.nextLine();
+
+
+					Review review = new Review(author, title, comment, rating);
+					boolean ok = bookService.addReview(new ObjectId(id), review);
+					System.out.println(ok ? "Review added successfully!" : "Book not found.");
+				}
+
 
 				case 0 -> System.out.println("Bye!");
 				default -> System.out.println("Invalid option, try again.");

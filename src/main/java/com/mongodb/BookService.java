@@ -2,6 +2,7 @@ package com.mongodb;
 
 import com.mongodb.config.HibernateUtil;
 import com.mongodb.domain.Book;
+import com.mongodb.domain.Review;
 import org.bson.types.ObjectId;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -65,4 +66,20 @@ public class BookService {
 					.list();
 		}
 	}
+
+	public boolean addReview(ObjectId bookId, Review review) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			Transaction tx = session.beginTransaction();
+
+			Book book = session.find(Book.class, bookId);
+			if (book == null) return false;
+
+			book.addReview(review);
+			session.merge(book);
+
+			tx.commit();
+			return true;
+		}
+	}
+
 }
