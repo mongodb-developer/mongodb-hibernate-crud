@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="hibernate.dialect">com.mongodb.hibernate.dialect.MongoDialect</property>
+        <property name="hibernate.connection.provider_class">
+            com.mongodb.hibernate.jdbc.MongoConnectionProvider
+        </property>
+        <property name="jakarta.persistence.jdbc.url">
+            <REPLACE_WITH_YOUR_CONNECTION_STRING>/mydb?appName=devrel-mongodb-hibernate
+        </property>
+
+        <property name="hibernate.show_sql">true</property>
+
+    </session-factory>
+</hibernate-configuration>
