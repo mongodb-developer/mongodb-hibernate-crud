@@ -5,7 +5,7 @@ The goal is to understand how Hibernate interacts with MongoDB and how tradition
 
 ## Versions
 
-This repository is organized into two tagged versions, each representing a stage of the learning series:
+This repository is organized into four tagged versions, each representing a stage of the learning series:
 
 | Tag      | Description                                                                                                                                                                                                                                                                                                                                                                      |
 |----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -23,6 +23,12 @@ git checkout v1.0
 
 # Part 2
 git checkout v2.0
+
+# Part 3
+git checkout v3.0
+
+# Part 4
+git checkout v4.0
 
 ```
 ## Prerequisites
