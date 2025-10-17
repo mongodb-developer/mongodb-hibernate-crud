@@ -7,11 +7,14 @@ The goal is to understand how Hibernate interacts with MongoDB and how tradition
 
 This repository is organized into two tagged versions, each representing a stage of the learning series:
 
-| Tag  | Description |
-|------|--------------|
-| **v1.0** | Part 1 – Basic CRUD operations with the `Book` entity (insert, list, update, delete). Focuses on Hibernate setup, MongoDB connection, and simple persistence using the MongoDB Dialect. |
-| **v2.0** | Part 2 – Modeling relationships between `Book` and `Review`. Explores embedded documents, unbounded arrays, and a two-collection approach using native MongoDB queries. |
+| Tag      | Description                                                                                                                                                                                                                                                                                                                                                                      |
+|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **v1.0** | Part 1 – Basic CRUD operations with the `Book` entity (insert, list, update, delete). Focuses on Hibernate setup, MongoDB connection, and simple persistence using the MongoDB Dialect.                                                                                                                                                                                          |
+| **v2.0** | Part 2 - Introduces the Review model and embeds reviews directly inside the Book document. Focuses on exploring the embedded document, showing how books can store their reviews as part of the same document in MongoDB.                                                                                                                                                        |
+| **v3.0** | Part 3 - Extracts the Review model into its own collection to prevent unbounded array growth inside the Book document. Introduces a new apporach, where each review stores the bookId it belongs to.                            
+| **v4.0** | Part 4 – Implements the subset pattern, keeping all reviews in a separate reviews collection while storing only the three most recent reviews inside each Book document under a recentReview field. This design combines the benefits of both embedded and referenced data |
 
+ 
 You can check out each version with:
 
 ```bash
