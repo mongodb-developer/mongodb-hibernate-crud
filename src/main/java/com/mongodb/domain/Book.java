@@ -7,6 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "books")
 public class Book {
@@ -16,6 +19,8 @@ public class Book {
 	ObjectId id;
 	String title;
 	Integer pages;
+
+	List<RecentReview> recentReview = new ArrayList<>();
 
 	public Book() {}
 	public Book(String title, Integer pages) {
@@ -51,8 +56,8 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book{id=%s, title='%s', totalPages='%s'}"
-				.formatted(id, title, pages);
+		return "Book{id=%s, title='%s', totalPages='%s', 'recentReviews='%s'}"
+				.formatted(id, title, pages, recentReview);
 	}
 }
 

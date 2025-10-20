@@ -34,4 +34,16 @@ public class Review {
       return "Review{author='%s', title='%s', comment='%s', rating=%.1f}"
               .formatted(author, title, comment, rating);
    }
+
+   public String getComment() {
+      return comment;
+   }
+
+   public ObjectId getBookId() {
+      return bookId;
+   }
+
+   public String getAuthor() {
+      return author;
+   }
 }
