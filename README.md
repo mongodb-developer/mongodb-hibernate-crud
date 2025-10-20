@@ -77,7 +77,9 @@ When you run the project, you'll see an interactive CLI menu:
 2 - List Books
 3 - Update Book Title
 4 - Delete Book
-5 - Add Review
+5 - Find Books by Minimum Pages
+6 - Add Review
+7 - List Books and Reviews by Id
 0 - Exit
 ```
 
