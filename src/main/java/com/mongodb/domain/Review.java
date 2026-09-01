@@ -2,7 +2,6 @@ package com.mongodb.domain;
 
 import com.mongodb.hibernate.annotations.ObjectIdGenerator;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import org.bson.types.ObjectId;
@@ -12,7 +11,6 @@ import org.bson.types.ObjectId;
 public class Review {
    @Id
    @ObjectIdGenerator
-   @GeneratedValue
    ObjectId id;
    private ObjectId bookId;
    private String author;

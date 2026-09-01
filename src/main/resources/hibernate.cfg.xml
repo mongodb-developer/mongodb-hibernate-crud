@@ -6,13 +6,11 @@
 <hibernate-configuration>
     <session-factory>
 
-        <property name="hibernate.dialect">com.mongodb.hibernate.dialect.MongoDialect</property>
-        <property name="hibernate.connection.provider_class">
-            com.mongodb.hibernate.jdbc.MongoConnectionProvider
-        </property>
         <property name="jakarta.persistence.jdbc.url">
             <REPLACE_WITH_YOUR_CONNECTION_STRING>/mydb?appName=devrel-mongodb-hibernate
         </property>
+
+        <property name="com.mongodb.hibernate.semantics.nulls">MQL</property>
 
         <property name="hibernate.show_sql">true</property>
 

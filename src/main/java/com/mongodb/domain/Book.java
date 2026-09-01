@@ -2,7 +2,6 @@ package com.mongodb.domain;
 
 import com.mongodb.hibernate.annotations.ObjectIdGenerator;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import org.bson.types.ObjectId;
@@ -15,7 +14,6 @@ import java.util.List;
 public class Book {
 	@Id
 	@ObjectIdGenerator
-	@GeneratedValue
 	ObjectId id;
 	String title;
 	Integer pages;
@@ -60,4 +58,3 @@ public class Book {
 				.formatted(id, title, pages, recentReview);
 	}
 }
-
